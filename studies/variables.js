@@ -13,49 +13,48 @@
  */
 
 // 1. declaration //
-var myName;
+var name;
 
 /*
- * At the declaration phase, the variable myName is UNDEFINED because we have NOT initialized
+ * At declaration , the variable name is UNDEFINED because it hasn't been intialized.
  * it to anything
  */
-console.log(myName); // prints => undefined
+console.log(name); // prints => undefined
 
 // 2. initialization or assignment //
-myName = 'john';
-console.log(myName); // prints => john
+name = 'kenny';
+console.log(name); // prints => kenny
 
 // 3. re-assignment //
-myName = 'bob';
-console.log(myName); // prints => bob
+name = 'dennis'
+console.log(name); // prints => dennis
 
-// NOTE: We can assign and re-assign anything to a variable - we cannot do this with constants //
-var myVariable = 1;
-var myVariable = true;
-myVariable = "someString";
+// NOTE: Any data type can be assinged to a variable declared with the var keyword//
+var numVariable = 1;
+var booleanVariable = true;
+var stringVariable = "someString";
 
 // var let const
 
-// 1. var declarations are globally and locally scoped. They can be redeclared and updated
-var name = "Julius" ;      //Here var "name" is globally scoped and acessible throughout the window
+// 1. var declarations can be locally or gloabally scoped
+var name = "Ajai" ;      //var "name" is globally scoped and acessible throughout the window
 
-function printName(value){               //Here var "lastName" is locally/function scoped, only avaiale
-    var lastName;                        //inside of the function. Notice the, globally scoped  "name" var
+function printName(value){               //the variable "lastName" is function scoped, only avaiale
+    var lastName = "dennis";            //inside of the function. The globally scoped  "name" variable
     console.log(name + " " + lastName);} //is accessable from outside of the function 
                                            
                                             
                                             
-/*2. let declarations are the standard declarations for Javascript. let declarations are block scoped
+/*2. Variables declared with let are the standard declaration method for Javascript. A variable declared with let is block scoped
      and can be updated but not redeclared */
-function demoLet(){
-    let letScope = "blockScoped"; // let is only availble within the block of code that it is declared
-    return "let is" + " " + letScope;
+function thisIsLet(){
+    let scope = "blockScoped"; // let can only be accessed within the block of code that it is declared. 
+    return "let is" + " " + scope;
 }
-/* console.log(x)   would throw a reference error because 
-                    "x" isn't avaialbe outside of code block */
+// console.log(scope)  -> would cause an error because the scope variable isn't accessible outside of the function's scope
 
-//3. const declarations are block scoped, like let, but cannot be redeclared nor updated. 
-function demoConst(){
-    const constScope = "blockScoped"; // let is only availble within the block of code that it is declared
-    return "const is" + " " + constScope + " " + "and constant.";
+//3. Like let, variables decalred with const are block scoped. They cannot be updated nor redeclared
+function constScope(){
+    const thisIsConst = "blockScoped"; // the const variable is only accesible within this function scope.
+    return "const variables are" + " " + constScope + " " + "and cannot be redclared nor updated.";
 }
