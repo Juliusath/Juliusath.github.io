@@ -2,11 +2,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // triangles ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
+//function with num parameter holding place of trianglesize
 function triangles(num) {
+  //empty variable
    let x ="";
-  for(let i =0; i < num; i++){
-  
+  //loop starting a zero ending at triangle size
+  for(let i = 0; i < num; i++){
+  //assgin character to variable and print character for each loop 
     console.log(x += '#');
   }
 
@@ -31,24 +33,31 @@ for (var i=1; i <= 15; i++){
 ////////////////////////////////////////////////////////////////////////////////
 // drawChessboard //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function drawChessboard() {
-
-var size = 8;
-var board = "";
-for (let x = 0; x < size; x++) {
-  for (let y = 0; y < size; y++) {
-    if ((x + y) % 2 == 0) {
-      board += " ";
-    }
-    else {
-      board += "#";
-    }
+//Declare function with "num" parameter for chessboard size
+function drawChessboard(num) {
+//variable for board size
+let boardSize = num;
+//variable for output
+let string = "";
+//loop boardSize starting at 0 ending with boardSize integer
+for (let i = 0; i < boardSize; i++) {
+// conditional loop of boardSize value
+  for (var j = 0; j < boardSize; j++) {
+//if the sum is even print a space
+    if ((j + i) % 2 == 0){
+      string += " ";
+// if odd print #
+    }else{
+      string += "#";
   }
-  board += "\n";
+  //add newline char
+  string += "\n";
 }
+//output
+console.log(string);
 
-console.log(board);
+}
+  
 }
 
 ////////////////////////////////////////////////////////////////////////////////
