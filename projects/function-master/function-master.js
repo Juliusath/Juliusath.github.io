@@ -245,6 +245,7 @@ function updateObject(object, key, value) {
 object[key]= value;
 //return updated object
 return object;
+//test test
 }
 
 //////////////////////////////////////////////////////////////////////
