@@ -31,6 +31,7 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  return (array.length === 0) ? 0 : array[0] + sum(array.slice(1));
 };
 
 // 4. Check if a number is even.
@@ -48,14 +49,15 @@ var isEven = function(n) {
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
+
 var sumBelow = function(n) {
-    if(n === 1){
-    return 1;
-  }else {
-    return (n ) + sumBelow(--n);
+  if(n === 0){ return 0; }
+  if (n < 0){
+    return n+1 +sumBelow(n +1);
   }
-  
-  
+  if( n > 0){
+    return n-1 + sumBelow(n -1);
+  }
 };
 
 // 6. Get the integers in range (x, y).
@@ -97,7 +99,7 @@ var range = function(x, y){
     }
     //recursive case
     //assign recursive call with y - 1
-    var list = range(x, y - 1);
+    list = range(x, y - 1);
     //push y - 1 to list
     list.push(y - 1);
     //return list
@@ -112,16 +114,16 @@ var range = function(x, y){
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
-
-   if (exp === 0) 
-   {
+  if(exp ===0){
     return 1;
-    }
-  else 
-  {
-    return base * exponent(base, exp - 1);
   }
-
+  if( exp === 1){
+    return base;
+  }
+  if(exp < 0){
+    return 1/( exponent( base, -exp));
+  }
+  return base * exponent(base, exp -1);
 };
 
 // 8. Determine if a number is a power of two.
@@ -129,6 +131,7 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  return n == 1 ? true : (n < 1 ? false : powerOfTwo(n/2));
 };
 
 // 9. Write a function that accepts a string a reverses it.
@@ -141,6 +144,16 @@ var reverse = function(string) {
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  let str = string.replace(/ /g,'');
+  if(str.length <= 1){
+    return true;
+  }
+  if (str[0].toUpperCase() === str[str.length -1].toUpperCase()){
+    return palindrome(str.substring(1, str.length -1));
+  } else{
+    return false; 
+  }  
+    
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -154,6 +167,15 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 var multiply = function(x, y) {
+  if (y === 0) {
+    return 0;
+  }
+  if (y > 0) {
+    return (x + multiply(x, y - 1))
+  }
+  if (y < 0) {
+    return -multiply(x, -y)
+  }
 };
 
 // 13. Write a function that divides two numbers without using the / operator  or
@@ -184,6 +206,8 @@ var createArray = function(str){
 
 // 17. Reverse the order of an array
 var reverseArr = function (array) {
+      if (!array.length) return array;
+     return reverseArr(array.slice(1)).concat(array[0]);
 };
 
 // 18. Create a new array with a given value and length.
@@ -196,6 +220,9 @@ var buildList = function(value, length) {
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+if(!array.length) return 0;
+  return (array[0] === value) + countOccurrence(array.slice(1), value);
+
 };
 
 // 20. Write a recursive version of map.
@@ -227,7 +254,11 @@ var replaceKeysInObj = function(obj, key, newKey) {
 // Example:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
-var fibonacci = function(n) {
+var fibonacci = function(n) {  
+  if (n <= 1) return 1;
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+
 };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -236,6 +267,12 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+    if (n === 1 || n === 2) {
+        return 1;
+    }
+    else {
+        return nthFibo(n-1) + nthFibo(n-2);
+    }
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.
@@ -302,6 +339,26 @@ var alternateSign = function(array) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  if (str.length === 1 && str === ' ') {
+	  return str.slice;
+	}
+	
+	if (!str) {
+		return '';
+	}
+
+	var numberNames = 'zero one two three four five six seven eight nine ten'.split(' ');
+	var numTranslator = {};
+	for (var i = 0 ; i < numberNames.length ; i++) {
+			numTranslator[i] = [numberNames[i]];
+	}
+
+	var character = str[0];
+	character = numTranslator[character] ? numTranslator[character] : character;
+
+	return character + numToText(str.slice(1));
+
+
 };
 
 // *** EXTRA CREDIT ***

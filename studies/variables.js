@@ -53,7 +53,7 @@ function thisIsLet(){
 }
 // console.log(scope)  -> would cause an error because the scope variable isn't accessible outside of the function's scope
 
-//3. Like let, variables decalred with const are block scoped. They cannot be updated nor redeclared
+//3. Variables decalred with const are block scoped. They cannot be updated nor redeclared
 function constScope(){
     const thisIsConst = "blockScoped"; // the const variable is only accesible within this function scope.
     return "const variables are" + " " + constScope + " " + "and cannot be redclared nor updated.";

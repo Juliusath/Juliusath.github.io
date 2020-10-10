@@ -23,7 +23,10 @@ set forth by the conditions of the loop*/
    //B. Infinite Loop-occures when no condition is given to terminate a loop
   
 //3. For In Loop iterates over objects
-   //A. Syntax - for (let key in object){...code to execute...}
+   /**A. Syntax - for (let key in object){...code to execute...}
+    * a property name is assigned to "key" on each iteration
+    * and code is executed for each variable assignement*/
+    
      var loopMe = { "loop": "me"};
      for(let key in loopMe){ 
          console.log( key + loopMe.loop);
