@@ -197,11 +197,24 @@ var gcd = function(x, y) {
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+      if(str1.length === 0 && str2.length === 0){
+        return true;
+    } else if(str1[0] === str2[0]){
+        return compareStr(str1.slice(1), str2.slice(1))
+    }
+    return false;
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str){
+      var arr = [];
+    if(str.length === 0) {
+        return arr;
+    }
+    arr.push(str[0]);
+    arr = arr.concat(createArray(str.slice(1)));
+    return arr;
 };
 
 // 17. Reverse the order of an array
@@ -228,8 +241,14 @@ if(!array.length) return 0;
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+  if(array.length === 1) { 
+  	return callback(array); 
+  }
+    return [callback(array[0])].concat(rMap(array.slice(1), callback));
 };
-
+console.log(rMap([1,2,3], function(times){
+	return times * 2
+}));
 // 21. Write a function that counts the number of times a key occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
@@ -255,9 +274,7 @@ var replaceKeysInObj = function(obj, key, newKey) {
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
 var fibonacci = function(n) {  
-  if (n <= 1) return 1;
 
-  return fibonacci(n - 1) + fibonacci(n - 2);
 
 };
 
@@ -267,23 +284,35 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
-    if (n === 1 || n === 2) {
-        return 1;
-    }
-    else {
-        return nthFibo(n-1) + nthFibo(n-2);
-    }
+   if(n < 0) {
+    	return null;
+    } else if(n === 1) {
+		return 1;
+	}
+  	return nthFibo(n - 1) + nthFibo(n - 2);
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(input) {
+      let result = [];
+    if(input.length === 0) {
+        return result;
+    }
+    result.push(input[0].toUpperCase());
+    result = result.concat(capitalizeWords(input.slice(1)));
+    return result;
 };
 
 // 27. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car', 'poop', 'banana']); // ['Car', 'Poop', 'Banana']
 var capitalizeFirst = function(array) {
+      let result = [];
+    if(!array.length) { return result; }
+    result.push(array[0].charAt(0).toUpperCase() + array[0].slice(1));
+    result = result.concat(capitalizeFirst(array.slice(1)));
+    return result;
 };
 
 // 28. Return the sum of all even numbers in an object containing nested objects.
@@ -306,6 +335,18 @@ var flatten = function(arrays) {
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
 var letterTally = function(str, obj) {
+      let result = Array.from(arguments)[1] || {};
+    if(str.length === 0) {
+        return result;
+    }
+    if(!result[str[0]]) {
+        result[str[0]] = 1;
+    } else
+     {
+        console.log(result[str[0]], 'hey');
+        result[str[0]]++;
+    }
+    return letterTally(str.slice(1), result);
 };
 
 // 31. Eliminate consecutive duplicates in a list.  If the list contains repeated
@@ -326,6 +367,12 @@ var augmentElements = function(array, aug) {
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+    if (array.length === 0) { return array }
+    if(minimizeZeroes(array.slice(1))[0] === 0 && array[0] === 0) {
+        return minimizeZeroes(array.slice(1));
+    } else {
+        return [array[0]].concat(minimizeZeroes(array.slice(1)));
+    }
 };
 
 // 34. Alternate the numbers in an array between positive and negative regardless of
@@ -333,6 +380,10 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
+      if (array.length === 0) { return array; }
+    if(array[0] < 0) { array[0] = -array[0]; }
+    if(array[1] > 0) { array[1] = -array[1]; }
+    return [array[0], array[1]].concat(alternateSign(array.slice(2)));
 };
 
 // 35. Given a string, return a string with digits converted to their word equivalent.
